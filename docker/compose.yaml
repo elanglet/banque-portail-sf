@@ -1,0 +1,22 @@
+version: "3.7"
+
+services: 
+    apache:
+        image: apache-php:1.0
+        build: 
+            context: .
+            dockerfile: Dockerfile.apache
+        container_name: apache
+        restart: always
+        ports:
+            - 80:80
+
+    mariadb:
+        image: mariadb-php:1.0
+        build: 
+            context: .
+            dockerfile: Dockerfile.mariadb
+        container_name: mariadb
+        restart: always
+        environment:
+            - MARIADB_RANDOM_ROOT_PASSWORD=yes
