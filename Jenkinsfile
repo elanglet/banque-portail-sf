@@ -7,5 +7,17 @@ pipeline {
       }
     }
 
+    stage('Build') {
+      steps {
+        bat 'compose install'
+      }
+    }
+
+    stage('Test') {
+      steps {
+        bat './vendor/bin/phpunit --log-junit var/log/phpunit.xml Tests/Unit'
+      }
+    }
+
   }
 }
