@@ -28,7 +28,7 @@ class ClientUnitTest extends TestCase
 
     public function testGetNom(): void
     {
-        $this->assertEquals("DUPOND", $this->client->getNom());
+        $this->assertEquals("DUPONT", $this->client->getNom());
     }
 
     public function testSetNom(): void
