@@ -1,23 +1,24 @@
 pipeline {
   agent any
   stages {
-    stage('SCM') {
-      steps {
-        git(url: 'https://github.com/elanglet/banque-portail-sf', branch: 'main')
-      }
+
+    stage('Récupération du code') {
+        steps {
+            git branch: 'main', url: 'https://github.com/elanglet/banque-portail-sf'
+        }
+    }
+    
+    stage('Installation des dépendances') {
+        steps {
+            bat 'composer install'
+        }
     }
 
-    stage('Build') {
-      steps {
-        bat 'composer install'
-      }
-    }
-
-    stage('Test') {
-      steps {
-        bat 'php .\\bin\\phpunit --log-junit tests-results.xml Tests\\Unit\\'
-        junit testResults: 'tests-results.xml'
-      }
+    stage('Exécution des tests') {
+        steps {
+            bat 'php .\\bin\\phpunit --log-junit tests-results.xml tests\\Unit\\'
+            junit testResults: 'tests-results.xml'
+        }
     }
 
     stage('SonarQube analysis') {
@@ -30,14 +31,5 @@ pipeline {
         }
       }
     }
-    
-    stage('Deployment') {
-        steps {
-            bat 'docker\\pre-deploy.cmd'
-            bat 'docker compose -f docker\\compose.yaml up -d --build'
-            bat 'docker\\post-deploy.cmd'
-        }
-    }
-
   }
 }
