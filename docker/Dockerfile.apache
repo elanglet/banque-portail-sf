@@ -17,8 +17,8 @@ COPY ./sources/.env				/site/banque-symfony
 
 RUN chown -R www-data:www-data /site/banque-symfony && \
 	chmod -R +x /site/banque-symfony && \
-    a2enmod rewrite && 
-	mv /usr/local/bin/httpd-foreground /usr/local/bin/httpd-foreground.win && 
+    a2enmod rewrite && \
+	mv /usr/local/bin/httpd-foreground /usr/local/bin/httpd-foreground.win && \
 	tr -d '\r' < /usr/local/bin/httpd-foreground.win > /usr/local/bin/httpd-foreground
 
 EXPOSE 80
