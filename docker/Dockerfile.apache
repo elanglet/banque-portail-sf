@@ -21,4 +21,4 @@ RUN chown -R www-data:www-data /site/banque-symfony && \
 
 EXPOSE 80
 
-ENTRYPOINT ["/usr/local/bin/httpd-foreground"]
+ENTRYPOINT ["httpd-foreground"]
